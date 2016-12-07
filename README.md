@@ -6,6 +6,12 @@
 * cross-browser support
 
 
-##TODO
+#TODO visual
 * icons
 * button icons
+* style page
+
+
+##TODO funcrional
+* affect style guide page content on creation
+* communication between scripts
