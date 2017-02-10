@@ -1,52 +1,40 @@
+/* global NodeFilter browser */
+
 var fonts = [];
-var colors =[];
+var colors = [];
 var bgs = [];
 
-
 function getAllInfo(cb) {
-  //loop through all dom elements
+  // loop through all dom elements
   var nodeIterator = document.createNodeIterator(
-      document.body,
-      NodeFilter.SHOW_ELEMENT);
-
+    document.body,
+    NodeFilter.SHOW_ELEMENT);
   var currentNode;
 
   while (currentNode = nodeIterator.nextNode()) {
-      fonts.push(currentNode.style.font);
-      fonts.push(currentNode.style.fontFamily);
-      colors.push(currentNode.style.color);
-      bgs.push(currentNode.style.backgroundColor);
+    var style = window.getComputedStyle(currentNode);
+    var top = style.getPropertyValue('font-family');
+    fonts.push(style.getPropertyValue('font'));
+    fonts.push(top);
+    colors.push(currentNode.style.color);
+    bgs.push(currentNode.style.backgroundColor);
   }
-
-  var f = fonts.filter(unique);
-  var c = colors.filter(unique);
-  var b = bgs.filter(unique);
-
-
-  cb(f,c,b);
+  cb(fonts, colors, bgs);
 }
+
+var unwanted = ['', 'inherit', 'transparent'];
 
 function unique(value, index, self) {
-    return self.indexOf(value) === index;
+  return self.indexOf(value) === index && unwanted.indexOf(value) < 0;
 }
 
+// send message to the script
 
-
-//send message to the script
-//window.addEventListener("click", sendCollected);
-
-function sendCollected(f,c,b) {
-  console.log(f);
-  console.log(c);
-  console.log(b);
-
-
-  browser.runtime.sendMessage({font: f, color: c, bg: b});
+function sendCollected(f, c, b) {
+  f = f.filter(unique);
+  c = c.filter(unique);
+  b = b.filter(unique);
+  browser.runtime.sendMessage({fonts: f, colors: c, bgs: b});
 }
-
 
 getAllInfo(sendCollected);
-
-console.log(f);
-console.log(c);
-console.log(b);

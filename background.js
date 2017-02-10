@@ -1,23 +1,29 @@
-//Trigger content script
+
+/* global chrome browser */
+
+// Trigger content script
 function createGuide() {
-  console.log("open");
-   //TODO polyfill
-
   chrome.tabs.executeScript(null, {
-    file: "/content_scripts/generate.js"
+    file: '/content_scripts/generate.js'
   });
 }
 
-//Open new tab with style guide
+var data;
+
+// Open new tab with style guide
 function openGuide(message) {
-  console.log(message);
-  chrome.tabs.create({
-    'url': chrome.extension.getURL('styleguide.html')
-  });
+  if (message.response) {
+    browser.runtime.sendMessage(data);
+  } else {
+    data = message;
+    chrome.tabs.create({
+      'url': chrome.extension.getURL('styleguide.html')
+    });
+  }
 }
 
-//browser action button listener
+// browser action button listener
 chrome.browserAction.onClicked.addListener(createGuide);
 
-//listener for content-scripts message
+// listener for content-scripts message
 browser.runtime.onMessage.addListener(openGuide);

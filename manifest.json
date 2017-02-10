@@ -8,16 +8,16 @@
    "homepage_url": "https://github.com/saintsebastian/sg-gen",
 
   "icons": {
-    "48": "icons/sg-gen-48.png",
-    "96": "icons/sg-gen-96.png"
+  "48": "icons/sg-gen-48.png",
+  "96": "icons/sg-gen-96.png"
   },
 
   "permissions": [
-    "activeTab"
+  "activeTab"
   ],
 
   "background": {
-    "scripts": ["background.js"]
+  "scripts": ["background.js"]
   },
 
   "browser_action": {
