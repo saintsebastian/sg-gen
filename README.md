@@ -1,6 +1,6 @@
 #Web Extension that generates style guide like document from a web page's css
 
-#TODO visual
+##TODO visual
 * icons
 * button icons
 * style page
@@ -14,3 +14,5 @@
 ##IDEAS
 * language support
 * link to context about colors and fonts
+
+##BUGS

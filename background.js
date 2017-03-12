@@ -1,5 +1,6 @@
+/* global chrome */
 
-/* global chrome browser */
+var data;
 
 // Trigger content script
 function createGuide() {
@@ -8,12 +9,10 @@ function createGuide() {
   });
 }
 
-var data;
-
 // Open new tab with style guide
 function openGuide(message) {
   if (message.response) {
-    browser.runtime.sendMessage(data);
+    chrome.runtime.sendMessage(data);
   } else {
     data = message;
     chrome.tabs.create({
@@ -26,4 +25,4 @@ function openGuide(message) {
 chrome.browserAction.onClicked.addListener(createGuide);
 
 // listener for content-scripts message
-browser.runtime.onMessage.addListener(openGuide);
+chrome.runtime.onMessage.addListener(openGuide);

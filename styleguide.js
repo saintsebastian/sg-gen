@@ -1,13 +1,16 @@
-/* global browser */
-browser.runtime.sendMessage({response: true});
+/* global chrome */
+let received = false;
 
-browser.runtime.onMessage.addListener(insertStyles);
+chrome.runtime.sendMessage({response: true});
+chrome.runtime.onMessage.addListener(insertStyles);
 
 function insertStyles(message) {
-  if (message) {
+  if (message && !received) {
     console.log(message);
-    for (let i in message)
-      addCard(message[i], i);
+    for (let i in message.data)
+      addCard(message.data[i], i);
+    setSource(message.title, message.address);
+    received = true;
   }
 }
 
@@ -30,4 +33,16 @@ function addCard(row, type) {
     card.appendChild(desc);
     section.appendChild(card);
   }
+}
+
+function setSource(title, address) {
+  var titleLink = document.createElement('a');
+  var titleText = document.createTextNode(title);
+  titleLink.appendChild(titleText);
+  titleLink.title = title;
+  titleLink.href = address;
+  var heading = document.getElementById('heading');
+  var newline = document.createElement('br');
+  heading.appendChild(newline);
+  heading.appendChild(titleLink);
 }
