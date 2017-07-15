@@ -13,8 +13,8 @@ function getAllInfo(cb) {
     var top = style.getPropertyValue('font-family');
     fonts.push(style.getPropertyValue('font'));
     fonts.push(top);
-    colors.push(items[i].style.color);
-    bgs.push(items[i].style.backgroundColor);
+    colors.push(style.getPropertyValue('color'));
+    bgs.push(style.getPropertyValue('background-color'));
   }
   cb(fonts, colors, bgs);
 }

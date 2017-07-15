@@ -8,7 +8,6 @@
 
 
 ##TODO functional
-* better data collection
 * display fonts
 
 ##IDEAS
