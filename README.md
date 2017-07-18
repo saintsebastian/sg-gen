@@ -1,13 +1,13 @@
-#Web Extension that generates style guide like document from a web page's css
+# Web Extension that generates style guide like document from a web page's css
 
-##TODO visual
+## TODO visual
 * style header
 * style font swatches
 * icons
 * button icons
 
 
-##TODO functional
+## TODO functional
 * color rgb to hex conversion https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
 * get color name
 http://chir.ag/projects/ntc/ntc.js
@@ -18,7 +18,7 @@ https://stackoverflow.com/questions/32525421/dynamically-load-web-font
 * printable guide
 * mobile version
 
-##IDEAS
+## IDEAS
 * language support for fonts
 
-##BUGS
+## BUGS
