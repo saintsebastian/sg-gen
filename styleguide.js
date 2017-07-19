@@ -47,6 +47,8 @@ function addCard(row, type) {
   }
 }
 
+// COLORS ACTIONS
+
 function addColor(item, type) {
   var card = document.createElement('li');
   card.classList.add('color');
@@ -55,10 +57,9 @@ function addColor(item, type) {
   swatch.classList.add('circleSwatch');
   swatch.style.backgroundColor = item;
 
-  var desc = document.createElement('span');
+  var hex = convertColors(item);
+  var desc = makeLink('#' + hex, 'http://www.colorhexa.com/' + hex)
   desc.classList.add('colorDesc');
-  var descText = document.createTextNode(item);
-  desc.appendChild(descText);
 
   var section = document.getElementById(type);
   card.appendChild(swatch);
