@@ -8,7 +8,7 @@ var weights =[];
 var colors = [];
 var bgs = [];
 
-function getAllInfo(cb) {
+function getAllValues(cb) {
   var items = document.getElementsByTagName('*');
   for (var i = items.length; i--;) {
     var style = window.getComputedStyle(items[i]);
@@ -42,4 +42,4 @@ function sendCollected(f, fs, fw, c, b) {
   });
 }
 
-getAllInfo(sendCollected);
+getAllValues(sendCollected);
