@@ -1,6 +1,7 @@
 body {
-  color: #49505D;
-  font-family: 'Raleway', sans-serif;
+  color: #272b32;
+  font-family: 'Open Sans', sans-serif;
+  background: #fafafa;
 }
 
 /* HEADER */
@@ -11,8 +12,7 @@ body {
   justify-content: center;
   align-content: center;
   align-items: flex-start;
-  border-bottom: 2px;
-  border-bottom-style: inset;
+  border-bottom: 2px solid #272b32;
   width: 100%;
   top: 0;
 }
@@ -20,14 +20,8 @@ body {
 h1 {
   text-align: center;
   font-size: 25px;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Arvo', serif;
   padding: 5%;
-}
-
-h2 {
-  font-size: 25px;
-  font-family: 'Playfair Display', serif;
-  align-self: left;
 }
 
 /* STYLEGUIDE BODY*/
@@ -36,25 +30,38 @@ h2 {
   display: flex;
   flex-flow: row nowrap;
   align-self: center;
-  justify-content: left;
+  justify-content: space-between;
   align-items: left;
-  width: 100%;
   top: 0;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-top: 20px;
+}
+
+
+h2 {
+  font-size: 20px;
+  font-family: 'Arvo', serif;
+  text-align: center;
+  border-bottom: 1px solid #272b32;
+  width: 50%;
+  margin: auto;
 }
 
 aside {
   flex: 1;
   flex-flow: row wrap;
+  width: 40%;
+  justify-content: space-around;
+  align-items: center;
 }
 
 #left {
-  background-color: #FAFAFA
 }
 
 h3 {
-  font-family: monospace;
-  font-size: 18px;
-  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
   text-align: center;
 }
 
@@ -71,6 +78,10 @@ ul {
   flex-flow: row wrap;
 	justify-content: space-around;
   align-items: flex-start;
+  -webkit-box-shadow: inset 0px -1px 10px -6px rgba(0,0,0,0.38);
+  -moz-box-shadow: inset 0px -1px 10px -6px rgba(0,0,0,0.38);
+  box-shadow: inset 0px -1px 10px -6px rgba(0,0,0,0.38);
+  padding-top: 10px;
 }
 
 .color {
@@ -78,6 +89,10 @@ ul {
   height: 8vw;
   flex: 0 1 25%;
   min-width: 80px;
+  text-align: center;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
 }
 
 .circleSwatch {

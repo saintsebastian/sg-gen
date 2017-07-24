@@ -155,5 +155,6 @@ function makeLink(title, address) {
   link.textContent = title;
   link.title = title;
   link.href = address;
+  link.target="_blank"
   return link;
 }

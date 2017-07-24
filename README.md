@@ -9,7 +9,8 @@
 
 
 ## TODO functional
-* closed source fonts
+* better font parsing
+* closed source fonts (check if google font)
 http://worknotes.scripting.com/february2012/22612ByDw/listOfGoogleFonts
 https://stackoverflow.com/questions/13856272/google-fonts-getting-a-list-of-available-fonts-through-ajax
 https://github.com/jonathantneal/google-fonts-complete
