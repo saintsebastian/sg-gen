@@ -1,9 +1,94 @@
 /* global chrome */
-let received = false;
-var defaultText = 'The quick brown fox jumps over the lazy dog';
-var defaultStyleText = 'Aa';
 
-var safeFonts = [
+// NECESSARY VARIABLES
+let received = false;
+let googleFonts;
+const defaultText = 'The quick brown fox jumps over the lazy dog';
+const defaultStyleText = 'Aa';
+
+// COMMUNICATION
+
+chrome.runtime.sendMessage({response: true});
+chrome.runtime.onMessage.addListener(insertStyles);
+
+// HELPERS
+
+function setSource(title, address) {
+  const titleLink = makeLink(title, address)
+  const heading = document.getElementById('source');
+  heading.appendChild(titleLink);
+}
+
+function makeLink(title, address) {
+  const link = document.createElement('a');
+  link.textContent = title;
+  link.title = title;
+  link.href = address;
+  link.target="_blank"
+  return link;
+}
+
+// GENERATE THE STYLE GUIDE
+
+function insertStyles(message) {
+  if (message && !received) {
+    received = true;
+    googleFonts = message.googleFonts;
+    setSource(message.title, message.address);
+    for (let i in message.data)
+      addCard(message.data[i], i);
+  }
+}
+
+function addCard(row, type) {
+  for (let i of row) {
+    if (type === 'fonts')
+      checkFont(i, type);
+    else if (type === 'style' || type === 'weight')
+      addFontStyle(i, 'styles', type);
+    else
+      addColor(i, type);
+  }
+}
+
+// COLORS ACTIONS
+
+function addColor(item, type) {
+  const card = document.createElement('li');
+  card.classList.add('color');
+
+  const swatch = document.createElement('div');
+  swatch.classList.add('circleSwatch');
+  swatch.style.backgroundColor = item;
+
+  const hex = convertColors(item);
+  const desc = makeLink('#' + hex, 'http://www.colorhexa.com/' + hex)
+  desc.classList.add('colorDesc');
+
+  const section = document.getElementById(type);
+  card.appendChild(swatch);
+  card.appendChild(desc);
+  section.appendChild(card);
+}
+
+function convertColors(color) {
+  function componentToHex(component) {
+    var hexodec = component.toString(16);
+    return hexodec.length == 1 ? '0' + hexodec : hexodec;
+  }
+  var parsed = color.replace('rgb(', '')
+  .replace(')', '')
+  .split(', ')
+  .map(el => {
+    var hexodec = parseInt(el).toString(16);
+    return hexodec.length == 1 ? '0' + hexodec : hexodec;
+  });
+  return parsed.join('');
+}
+
+// FONTS ACTIONS
+
+const safeFonts = [
   'arial',
   'helvetica',
   'times new roman',
@@ -24,137 +109,86 @@ var safeFonts = [
   'andale mono'
 ];
 
-chrome.runtime.sendMessage({response: true});
-chrome.runtime.onMessage.addListener(insertStyles);
-
-function insertStyles(message) {
-  if (message && !received) {
-    setSource(message.title, message.address);
-    for (let i in message.data)
-      addCard(message.data[i], i);
-    received = true;
-  }
+function checkFont(item, type) {
+  const goalFont = item.split(',')[0].replace(/"/g, '');
+  if(safeFonts.includes(goalFont.toLowerCase())) {
+    addFreeFont(item, type, goalFont, false);
+  } else if (googleFonts.includes(goalFont)) {
+    addFreeFont(item, type, goalFont, true);
+  } else
+    addProprietaryFont(item, goalFont);
 }
 
-function addCard(row, type) {
-  for (let i of row) {
-    if (type === 'fonts')
-      addFont(i, type);
-    else if (type === 'style' || type === 'weight')
-      addFontStyle(i, 'styles', type);
-    else
-      addColor(i, type);
+function addFreeFont(item, type, goalFont, link) {
+  const card = document.createElement('li');
+  card.classList.add('font');
+
+  const swatch = document.createElement('h5');
+  swatch.classList.add('fontSwatch');
+  swatch.textContent = defaultText;
+  swatch.style.fontFamily = item;
+  let desc;
+  if (link) {
+    desc = makeLink(goalFont, 'https://fonts.google.com/specimen/' + goalFont);
+    desc.classList.add('fontDesc');
+    loadFonts(goalFont, swatch);
+  } else {
+    desc = document.createElement('h5');
+    desc.textContent = goalFont;
   }
-}
-
-// COLORS ACTIONS
-
-function addColor(item, type) {
-  var card = document.createElement('li');
-  card.classList.add('color');
-
-  var swatch = document.createElement('div');
-  swatch.classList.add('circleSwatch');
-  swatch.style.backgroundColor = item;
-
-  var hex = convertColors(item);
-  var desc = makeLink('#' + hex, 'http://www.colorhexa.com/' + hex)
-  desc.classList.add('colorDesc');
-
-  var section = document.getElementById(type);
-  card.appendChild(swatch);
+  desc.classList.add('fontDesc');
+  const section = document.getElementById(type);
   card.appendChild(desc);
+  card.appendChild(swatch);
   section.appendChild(card);
 }
 
-function convertColors(color) {
-  function componentToHex(component) {
-    var hexodec = component.toString(16);
-    return hexodec.length == 1 ? '0' + hexodec : hexodec;
+function addProprietaryFont(item, goalFont) {
+  if (document.getElementById('prop').textContent === '') {
+    document.getElementById('prop').textContent = 'Proprietary Typefaces';
   }
-  var parsed = color.replace('rgb(', '')
-                    .replace(')', '')
-                    .split(', ')
-                    .map(el => {
-                      var hexodec = parseInt(el).toString(16);
-                      return hexodec.length == 1 ? '0' + hexodec : hexodec;
-                    });
-  return parsed.join('');
-}
+  const card = document.createElement('li');
+  card.classList.add('pFont');
 
-// FONTS ACTIONS
+  const desc = document.createElement('h5');
+  desc.classList.add('fontDesc');
+  desc.textContent = goalFont;
 
-function addFont(item, type) {
-  var goalFont = item.split(',')[0].replace(/"/g, '');
-
-  var card = document.createElement('li');
-  card.classList.add('font');
-
-  var swatch = document.createElement('h5');
-  swatch.classList.add('fontSwatch');
-  swatch.textContent = defaultText;
-  if (safeFonts.includes(goalFont.toLowerCase())) {
-    swatch.style.fontFamily = item;
-    var desc = document.createElement('h5');
-    desc.classList.add('fontDesc');
-    desc.textContent = goalFont;
-  } else {
-    loadFonts(goalFont, swatch);
-    var desc = makeLink(goalFont, 'https://fonts.google.com/specimen/' + goalFont)
-    desc.classList.add('fontDesc');
-  }
-
-  var section = document.getElementById(type);
+  const section = document.getElementById('pFonts');
   card.appendChild(desc);
-  card.appendChild(swatch);
   section.appendChild(card);
 }
 
 function addFontStyle(item, type, style) {
-  var card = document.createElement('li');
+  const card = document.createElement('li');
   card.classList.add('style');
-  var swatch = document.createElement('div');
+  const swatch = document.createElement('div');
   swatch.classList.add('styleSwatch');
 
-  var text = document.createElement('span');
+  const text = document.createElement('span');
   text.classList.add('styleText');
-  var atr =  'font-' + style + ':' + item;
+  const atr =  'font-' + style + ':' + item;
   text.setAttribute('style', atr);
   text.textContent = defaultStyleText;
   swatch.appendChild(text);
 
-  var desc = document.createElement('span');
+  const desc = document.createElement('span');
   desc.classList.add('styleDesc');
   desc.textContent = style + ': ' +item;
 
-  var section = document.getElementById(type);
+  const section = document.getElementById(type);
   card.appendChild(swatch);
   card.appendChild(desc);
   section.appendChild(card);
 }
 
 function loadFonts(fontName, element) {
-  var head = document.getElementsByTagName('head')[0];
-  var link = document.createElement('link');
+  const head = document.getElementsByTagName('head')[0];
+  const link = document.createElement('link');
   link.id = fontName;
   link.rel = 'stylesheet';
   link.type = 'text/css';
   link.href = 'http://fonts.googleapis.com/css?family=' + fontName;
   head.appendChild(link);
   element.style.fontFamily = fontName;
-}
-
-function setSource(title, address) {
-  var titleLink = makeLink(title, address)
-  var heading = document.getElementById('source');
-  heading.appendChild(titleLink);
-}
-
-function makeLink(title, address) {
-  var link = document.createElement('a');
-  link.textContent = title;
-  link.title = title;
-  link.href = address;
-  link.target="_blank"
-  return link;
 }
