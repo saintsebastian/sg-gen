@@ -2,16 +2,13 @@
 
 ## TODO visual
 * style header
-* style font swatches
+* style proprietary fonts
 * icons
 * button icons
-* style link
-
+* style links
 
 ## TODO functional
-* accesibility
 * better font parsing
-* closed source fonts style and links
 * printable guide
 * mobile version
 
@@ -21,3 +18,4 @@ http://chir.ag/projects/ntc/ntc.js
 * language support for fonts
 
 ## BUGS
+* NaN color

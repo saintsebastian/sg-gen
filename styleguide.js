@@ -14,17 +14,18 @@ chrome.runtime.onMessage.addListener(insertStyles);
 // HELPERS
 
 function setSource(title, address) {
-  const titleLink = makeLink(title, address)
+  const titleLink = makeLink(title, address, 'source ')
   const heading = document.getElementById('source');
   heading.appendChild(titleLink);
 }
 
-function makeLink(title, address) {
+function makeLink(title, address, linkinfo) {
   const link = document.createElement('a');
   link.textContent = title;
   link.title = title;
   link.href = address;
-  link.target="_blank"
+  link.setAttribute('aria-label', linkinfo + title);
+  link.target = '_blank';
   return link;
 }
 
@@ -62,7 +63,7 @@ function addColor(item, type) {
   swatch.style.backgroundColor = item;
 
   const hex = convertColors(item);
-  const desc = makeLink('#' + hex, 'http://www.colorhexa.com/' + hex)
+  const desc = makeLink('#' + hex, 'http://www.colorhexa.com/' + hex, 'color ')
   desc.classList.add('colorDesc');
 
   const section = document.getElementById(type);
@@ -129,7 +130,11 @@ function addFreeFont(item, type, goalFont, link) {
   swatch.style.fontFamily = item;
   let desc;
   if (link) {
-    desc = makeLink(goalFont, 'https://fonts.google.com/specimen/' + goalFont);
+    desc = makeLink(
+      goalFont,
+      'https://fonts.google.com/specimen/' + goalFont,
+      'font famliy '
+    );
     desc.classList.add('fontDesc');
     loadFonts(goalFont, swatch);
   } else {
