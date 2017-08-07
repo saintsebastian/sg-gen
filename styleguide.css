@@ -1,7 +1,14 @@
 body {
-  color: #272b32;
-  font-family: 'Open Sans', sans-serif;
+  color: #3c4046;
+  font-family: 'Roboto', sans-serif;
   background: #fafafa;
+  padding:0;
+  margin:0;
+}
+
+div {
+	padding:0;
+	margin:0;
 }
 
 /* HEADER */
@@ -12,16 +19,22 @@ body {
   justify-content: center;
   align-content: center;
   align-items: flex-start;
-  border-bottom: 2px solid #272b32;
   width: 100%;
   top: 0;
+  background-color: #3c4046;
 }
 
 h1 {
   text-align: center;
   font-size: 25px;
-  font-family: 'Arvo', serif;
+  font-family: 'Playfair Display SC', serif;
   padding: 5%;
+  color: #fafafa;
+}
+
+
+h1 a {
+  color: #fafafa;
 }
 
 /* STYLEGUIDE BODY*/
@@ -42,7 +55,7 @@ h1 {
 
 h2 {
   font-size: 20px;
-  font-family: 'Arvo', serif;
+  font-family: 'Playfair Display SC', serif;
   text-align: center;
   border-bottom: 1px solid #272b32;
   width: 50%;
@@ -52,7 +65,8 @@ h2 {
 aside {
   flex: 1;
   flex-flow: row wrap;
-  width: 40%;
+  min-width: 40%;
+  max-width: 45%;
   justify-content: space-around;
   align-items: center;
 }
@@ -63,6 +77,7 @@ aside {
 h3 {
   font-size: 15px;
   text-align: center;
+  /*font-family: 'Playfair Display', serif;*/
 }
 
 ul {
@@ -109,6 +124,10 @@ ul {
   text-align: center;
 }
 
+a {
+  color: #52555a;
+}
+
 /* FONTS */
 
 #fonts {
@@ -140,6 +159,25 @@ ul {
   width: 15vw;
 }
 
+#pFonts {
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.pFont {
+  align-items: center;
+}
+
+.pFontDesc {
+  /*color: grey;
+  flex: 1 1 20%;
+  max-width: 30%;
+  text-align: right;
+  font-size: 16px;
+  width: 15vw;*/
+}
+
 /* STYLES */
 
 #styles {
@@ -152,6 +190,7 @@ ul {
 .style {
   width: 80px;
   text-align: center;
+  margin-right: 10px;
 }
 
 .styleSwatch {

@@ -33,6 +33,7 @@ function makeLink(title, address, linkinfo) {
 
 function insertStyles(message) {
   if (message && !received) {
+    console.table(message.data);
     received = true;
     googleFonts = message.googleFonts;
     setSource(message.title, message.address);
@@ -63,6 +64,7 @@ function addColor(item, type) {
   swatch.style.backgroundColor = item;
 
   const hex = convertColors(item);
+  console.log(hex);
   const desc = makeLink('#' + hex, 'http://www.colorhexa.com/' + hex, 'color ')
   desc.classList.add('colorDesc');
 
@@ -156,7 +158,7 @@ function addProprietaryFont(item, goalFont) {
   card.classList.add('pFont');
 
   const desc = document.createElement('h5');
-  desc.classList.add('fontDesc');
+  desc.classList.add('pFontDesc');
   desc.textContent = goalFont;
 
   const section = document.getElementById('pFonts');
