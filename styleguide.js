@@ -63,30 +63,34 @@ function addColor(item, type) {
   swatch.classList.add('circleSwatch');
   swatch.style.backgroundColor = item;
 
-  const hex = convertColors(item);
-  console.log(hex);
-  const desc = makeLink('#' + hex, 'http://www.colorhexa.com/' + hex, 'color ')
+  const {hex, opacity} = convertColors(item);
+  const desc = makeLink('#' + hex, 'http://www.colorhexa.com/' + hex, 'color ');
   desc.classList.add('colorDesc');
-
   const section = document.getElementById(type);
   card.appendChild(swatch);
   card.appendChild(desc);
+  if (opacity < 1) {
+    console.log(hex, opacity);
+    const opacityDesc = document.createElement('span');
+    opacityDesc.classList.add('opacityDesc');
+    opacityDesc.textContent = 'Opacity: ' + opacity;
+    card.appendChild(opacityDesc);
+  }
   section.appendChild(card);
 }
 
 function convertColors(color) {
-  function componentToHex(component) {
-    var hexodec = component.toString(16);
-    return hexodec.length == 1 ? '0' + hexodec : hexodec;
-  }
-  var parsed = color.replace('rgb(', '')
-  .replace(')', '')
-  .split(', ')
-  .map(el => {
-    var hexodec = parseInt(el).toString(16);
-    return hexodec.length == 1 ? '0' + hexodec : hexodec;
-  });
-  return parsed.join('');
+  const rgba = new RegExp('rgba');
+  const replacer = rgba.test(color) ? 'rgba(' : 'rgb(';
+  const parsed = color.replace(replacer, '')
+    .replace(')', '')
+    .split(', ');
+  const opacity = parsed.length === 4 ? parsed.pop() : 1;
+  const hex = parsed.map(el => {
+      const hexodec = parseInt(el).toString(16);
+      return hexodec.length == 1 ? '0' + hexodec : hexodec;
+    }).join('');
+  return {hex, opacity};
 }
 
 // FONTS ACTIONS

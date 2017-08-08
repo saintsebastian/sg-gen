@@ -32,7 +32,6 @@ h1 {
   color: #fafafa;
 }
 
-
 h1 a {
   color: #fafafa;
 }
@@ -52,7 +51,6 @@ h1 a {
   padding-top: 20px;
 }
 
-
 h2 {
   font-size: 20px;
   font-family: 'Playfair Display SC', serif;
@@ -71,13 +69,9 @@ aside {
   align-items: center;
 }
 
-#left {
-}
-
 h3 {
   font-size: 15px;
   text-align: center;
-  /*font-family: 'Playfair Display', serif;*/
 }
 
 ul {
@@ -123,6 +117,13 @@ ul {
   font-size: 10px;
   text-align: center;
 }
+
+.opacityDesc {
+  font-size: 10px;
+  text-align: center;
+}
+
+.opac
 
 a {
   color: #52555a;

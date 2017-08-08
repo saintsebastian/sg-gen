@@ -14,6 +14,6 @@
 * get color name
 http://chir.ag/projects/ntc/ntc.js
 * language support for fonts
+* opacity from rgba and opacity attribute
 
 ## BUGS
-* NaN color
