@@ -1,7 +1,6 @@
 # Web Extension that generates style guide like document from a web page's css
 
 ## TODO visual
-* style proprietary fonts
 * icons
 * button icons
 
@@ -14,6 +13,6 @@
 * get color name
 http://chir.ag/projects/ntc/ntc.js
 * language support for fonts
-* opacity from rgba and opacity attribute
+* opacity from opacity attribute
 
 ## BUGS

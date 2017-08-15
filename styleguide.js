@@ -127,10 +127,10 @@ function checkFont(item, type) {
 }
 
 function addFreeFont(item, type, goalFont, link) {
-  const card = document.createElement('li');
-  card.classList.add('font');
+  // const card = document.createElement('li');
+  // card.classList.add('font');
 
-  const swatch = document.createElement('h5');
+  const swatch = document.createElement('span');
   swatch.classList.add('fontSwatch');
   swatch.textContent = defaultText;
   swatch.style.fontFamily = item;
@@ -144,24 +144,27 @@ function addFreeFont(item, type, goalFont, link) {
     desc.classList.add('fontDesc');
     loadFonts(goalFont, swatch);
   } else {
-    desc = document.createElement('h5');
+    desc = document.createElement('span');
     desc.textContent = goalFont;
   }
   desc.classList.add('fontDesc');
-  const section = document.getElementById(type);
-  card.appendChild(desc);
-  card.appendChild(swatch);
-  section.appendChild(card);
+
+  const swatchSection = document.getElementById('fontSwatches');
+  const descSection = document.getElementById('fontDescs');
+
+  descSection.appendChild(desc);
+  swatchSection.appendChild(swatch);
 }
 
 function addProprietaryFont(item, goalFont) {
   if (document.getElementById('prop').textContent === '') {
     document.getElementById('prop').textContent = 'Proprietary Typefaces';
+    document.getElementById('prop').style.height = 'auto';
   }
   const card = document.createElement('li');
   card.classList.add('pFont');
 
-  const desc = document.createElement('h5');
+  const desc = document.createElement('span');
   desc.classList.add('pFontDesc');
   desc.textContent = goalFont;
 
