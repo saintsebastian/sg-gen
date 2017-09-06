@@ -87,9 +87,9 @@ function convertColors(color) {
     .split(', ');
   const opacity = parsed.length === 4 ? parsed.pop() : 1;
   const hex = parsed.map(el => {
-      const hexodec = parseInt(el).toString(16);
-      return hexodec.length == 1 ? '0' + hexodec : hexodec;
-    }).join('');
+    const hexodec = parseInt(el).toString(16);
+    return hexodec.length === 1 ? '0' + hexodec : hexodec;
+  }).join('');
   return {hex, opacity};
 }
 
@@ -113,16 +113,17 @@ const safeFonts = [
   'sans-serif',
   'serif',
   'tahoma',
-  'andale mono'
+  'andale mono',
+  '-apple-system',
 ];
 
 function checkFont(item, type) {
   const goalFont = item.split(',')[0].replace(/"/g, '');
-  if(safeFonts.includes(goalFont.toLowerCase())) {
+  if (safeFonts.includes(goalFont.toLowerCase()))
     addFreeFont(item, type, goalFont, false);
-  } else if (googleFonts.includes(goalFont)) {
+  else if (googleFonts.includes(goalFont))
     addFreeFont(item, type, goalFont, true);
-  } else
+  else
     addProprietaryFont(item, goalFont);
 }
 
@@ -181,14 +182,14 @@ function addFontStyle(item, type, style) {
 
   const text = document.createElement('span');
   text.classList.add('styleText');
-  const atr =  'font-' + style + ':' + item;
+  const atr = 'font-' + style + ':' + item;
   text.setAttribute('style', atr);
   text.textContent = defaultStyleText;
   swatch.appendChild(text);
 
   const desc = document.createElement('span');
   desc.classList.add('styleDesc');
-  desc.textContent = style + ': ' +item;
+  desc.textContent = style + ': ' + item;
 
   const section = document.getElementById(type);
   card.appendChild(swatch);

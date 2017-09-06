@@ -4,7 +4,7 @@ const unwanted = ['', 'inherit', 'transparent'];
 
 var fonts = [];
 var styles = [];
-var weights =[];
+var weights = [];
 var colors = [];
 var bgs = [];
 
@@ -28,7 +28,6 @@ function unique(value, index, self) {
 
 function getGoogleFonts(get, send) {
   const url = 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyA2OmOnNDbuIAJt89qGrp7BUms9XmLP-Ec';
-  let fonts;
   const req = new XMLHttpRequest();
   req.open('GET', url, true);
   req.onload = function() {
