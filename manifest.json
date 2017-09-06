@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "sg-gen",
+  "name": "style Guide",
   "version": "1.0",
 
   "description": "Generate simple style guide from page's CSS.",
