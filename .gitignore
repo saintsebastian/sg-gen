@@ -1,2 +1,4 @@
 .DS_Store
+.web-extension-id
 node_modules/
+web-ext-artifacts/
