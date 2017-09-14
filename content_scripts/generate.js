@@ -1,6 +1,10 @@
 /* global chrome location */
 
-const unwanted = ['', 'inherit', 'transparent'];
+const unwanted = [
+  '',
+  'inherit',
+  'transparent',
+];
 
 var fonts = [];
 var styles = [];
@@ -56,7 +60,7 @@ function sendCollected(f, fs, fw, c, b, gf) {
     },
     title: document.title,
     address: location.href,
-    googleFonts: gf
+    googleFonts: gf,
   });
 }
 

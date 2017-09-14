@@ -6,6 +6,11 @@ var data;
 function createGuide() {
   chrome.tabs.executeScript(null, {
     file: '/content_scripts/generate.js'
+  }).catch(e => {
+    if (e.message && /Missing host permission for the tab/.test(e.message))
+      window.alert('This addon does not work in this tab');
+    else
+      throw e;
   });
 }
 
