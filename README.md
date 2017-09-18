@@ -1,5 +1,7 @@
 # Web Extension that generates style guide like document from a web page's css
 
+You can find it [here](https://addons.mozilla.org/en-US/firefox/addon/style-guide-generator/).
+
 The final result is
 
 ![Screenshot of Style Guide Generator][screenshot]

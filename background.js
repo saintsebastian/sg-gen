@@ -5,7 +5,10 @@ var data;
 // Trigger content script
 function createGuide() {
   chrome.tabs.executeScript(null, {
-    file: '/content_scripts/generate.js'
+    file: '/content_scripts/generate.js',
+  }, () => {
+    if (chrome.runtime.lastError)
+      console.error(chrome.runtime.lastError.message);
   }).catch(e => {
     if (e.message && /Missing host permission for the tab/.test(e.message))
       window.alert('This addon does not work in this tab');
@@ -21,7 +24,7 @@ function openGuide(message) {
   } else {
     data = message;
     chrome.tabs.create({
-      'url': chrome.extension.getURL('styleguide.html')
+      'url': chrome.extension.getURL('styleguide.html'),
     });
   }
 }

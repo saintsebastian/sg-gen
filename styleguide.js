@@ -33,7 +33,6 @@ function makeLink(title, address, linkinfo) {
 
 function insertStyles(message) {
   if (message && !received) {
-    console.table(message.data);
     received = true;
     googleFonts = message.googleFonts;
     setSource(message.title, message.address);
@@ -70,7 +69,6 @@ function addColor(item, type) {
   card.appendChild(swatch);
   card.appendChild(desc);
   if (opacity < 1) {
-    console.log(hex, opacity);
     const opacityDesc = document.createElement('span');
     opacityDesc.classList.add('opacityDesc');
     opacityDesc.textContent = 'Opacity: ' + opacity;
